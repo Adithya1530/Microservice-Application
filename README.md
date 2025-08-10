@@ -19,9 +19,16 @@ A microservices-based Spring Boot application where two services interact throug
 
 ## Architecture Overview
 
-Client → [API Gateway] → [Microservice A] ↔ (Feign Client) ↔ [Microservice B]
-                  ↘                    ↘
-            (Service Discovery via Eureka Server)
+graph LR
+    Client --> API_Gateway
+    API_Gateway --> Microservice_A
+    Microservice_A -- Feign Client --> Microservice_B
+    Microservice_B -- Feign Client --> Microservice_A
+    API_Gateway -.-> Eureka
+    Microservice_A -.-> Eureka
+    Microservice_B -.-> Eureka
+    
+    classDef default stroke:#333,fill:transparent;
 
 ## How It Works
 

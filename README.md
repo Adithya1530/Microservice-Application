@@ -17,22 +17,20 @@ A microservices-based Spring Boot application where two services interact throug
 - **Database:** MySQL  
 - **Build Tool:** Maven  
 
-## Architecture Overview
-
-graph LR
-    Client --> API_Gateway
-    API_Gateway --> Microservice_A
-    Microservice_A -- Feign Client --> Microservice_B
-    Microservice_B -- Feign Client --> Microservice_A
-    API_Gateway -.-> Eureka
-    Microservice_A -.-> Eureka
-    Microservice_B -.-> Eureka
-    
-    classDef default stroke:#333,fill:transparent;
-
 ## How It Works
 
 1. Client sends a request to the **API Gateway**.  
 2. Gateway dynamically routes the request to the appropriate microservice via **Eureka**.  
 3. One service communicates with another service via **Feign Client**.  
 4. Results are processed and returned to the client.  
+
+## Architecture Overview
+
+```mermaid
+graph LR
+    Client --> API_Gateway
+    API_Gateway --> Microservice_A
+    Microservice_A -- Feign Client --> Microservice_B
+    API_Gateway -. Service Discovery .- Eureka
+    Microservice_A -.-> Eureka
+    Microservice_B -.-> Eureka
